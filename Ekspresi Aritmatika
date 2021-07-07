@@ -1,2 +1,72 @@
+// INFIX TO POSTFIX
+
 #include <iostream>
+#include <string>
+#include <bits/stdc++.h>
 using namespace std;
+
+int operatorOrNot(char ch)
+{
+    if (ch == '%' || ch == '/' || ch == '*' || ch == '+' || ch == '-' || ch == '(')
+        return 1;
+    return 0;
+}
+
+int Priority(char op)
+{
+    if (op == '%')
+        return 3;
+    else if (op == '/' || op == '*')
+        return 2;
+    else if (op == '+' || op == '-')
+        return 1;
+    return INT8_MAX;
+}
+string InfixToPostfix(string expression)
+{
+    string output;
+    stack<char> Stack;
+    for (int i = 0; i < expression.length(); i++)
+    {
+        char character = expression[i];
+        if (isalnum(character))
+        {
+            output.push_back(character);
+        }
+        
+        else if (operatorOrNot(character))
+        {
+    
+            while (!Stack.empty() && Stack.top() != '(' && Priority(Stack.top()) >= Priority(character))
+            {
+                output.push_back(Stack.top());
+                Stack.pop();
+            }
+            Stack.push(character);
+        }
+        
+        else if (character == ')')
+        {
+            while (Stack.top() != '(')
+            {
+                output.push_back(Stack.top());
+                Stack.pop();
+            }
+            Stack.pop();
+        }
+    }
+    
+    while (!Stack.empty())
+    {
+        output.push_back(Stack.top());
+        Stack.pop();
+    }
+    return output;
+}
+int main()
+{
+    char infix[20];
+    cin.getline(infix, 20);
+    cout << InfixToPostfix(infix);
+}
+
