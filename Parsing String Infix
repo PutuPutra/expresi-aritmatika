@@ -1,1 +1,115 @@
+#include <bits/stdc++.h>
+using namespace std;
 
+
+bool is_Operand(char i){
+	int a = (int)i;
+	if (a >= 48 && a <= 57){
+    	return true;
+	} 
+	else {
+		return false;
+	}
+	
+}
+
+bool is_Operator(char i){
+	int a = (int)i;
+	if (!(a >= 48 && a <= 57)){
+    	return true;
+	}
+	else {
+		return false;
+	}
+
+}
+
+
+int main(){
+	string In, array[100], infix;
+	int hasil = 0, panjang;
+	getline(cin, In);
+
+panjang = In.length();
+for(int i = 0; i<panjang; i++){
+    if (In[i] != ' '){
+        infix += In[i];
+    }
+}
+
+panjang = infix.length();
+for (int i = 0;i<panjang;i++){
+
+	if (is_Operand(infix[i])){
+	    if (is_Operand(infix[i]) && is_Operand(infix[i+1])){
+	        array[hasil] = infix[i];
+	        array[hasil] += infix[i+1];
+	        hasil++;
+	        i++;
+	    } 
+		else if (is_Operand(infix[i]) && !(is_Operand(infix[i+1]))){
+	        array[hasil] = infix[i];
+	        hasil++;
+	    }
+	}
+	
+	if (is_Operator(infix[i])){
+	    if(is_Operator(infix[i]) && infix[i+1] == '-' && infix[i+2] == '('){
+	        array[hasil+1] = infix[i+1];
+	        array[hasil+2] = '*';
+	        array[hasil] = infix[i];
+	        array[hasil+1] += "1";
+	        hasil+=3;
+	        i++;
+	    }
+		else if (is_Operator(infix[i]) && infix[i+1] == '-' && is_Operand(infix[i+2])&&infix[i]!= ')'){
+	        array[hasil+1] = infix[i+1];
+	        array[hasil] = infix[i];
+	        array[hasil+1]+= "1";
+	        array[hasil+2] = '*';
+	        hasil+=3;
+	        i++;
+	
+	    }
+		else if (infix[i] == '-' && infix[i+1]=='(' && i == 0){
+	        array[hasil] = infix[i];
+	        array[hasil] += '1';
+	        array[hasil+1] = '*';
+	        hasil+=2;
+	
+	    }
+		else if (infix[i]=='-' && is_Operand(infix[i+1]) && !is_Operand(infix[i+2]) && i == 0){
+	        array[hasil] = infix[i];
+	        array[hasil] += infix[i+1];
+	        hasil+=2;
+	        i++;
+	
+	    }
+		else if (infix[i]=='-' && is_Operand(infix[i+1]) && is_Operand(infix[i+2]) && i == 0){
+	        array[hasil] = infix[i];
+	        array[hasil] += infix[i+1];
+	        array[hasil] += infix[i+2];
+	        hasil+=3;
+	        i+=2;
+	
+	    }
+		else if (is_Operator(infix[i])){
+	        array[hasil] = infix[i];
+	        hasil++;
+	
+	    }
+	}
+
+}
+
+
+for (int i = 0;i<=hasil;i++){
+    if(i == 0){
+        cout << "Ekspresi Infix : ";
+    }
+    if(array[i].length()>=1){
+        cout << array[i] << " ";
+    }
+}
+
+}
