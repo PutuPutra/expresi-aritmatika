@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
 bool is_Operand(char i){
 	int a = (int)i;
 	if (a >= 48 && a <= 57){
@@ -24,7 +23,6 @@ bool is_Operator(char i){
 
 }
 
-
 int main(){
 	string In, array[100], infix;
 	int hasil = 0, panjang;
@@ -38,7 +36,7 @@ for(int i = 0; i<panjang; i++){
 }
 
 panjang = infix.length();
-for (int i = 0;i<panjang;i++){
+for (int i = 0; i<panjang; i++){
 
 	if (is_Operand(infix[i])){
 	    if (is_Operand(infix[i]) && is_Operand(infix[i+1])){
@@ -103,7 +101,7 @@ for (int i = 0;i<panjang;i++){
 }
 
 
-for (int i = 0;i<=hasil;i++){
+for (int i = 0; i<=hasil; i++){
     if(i == 0){
         cout << "Ekspresi Infix : ";
     }
