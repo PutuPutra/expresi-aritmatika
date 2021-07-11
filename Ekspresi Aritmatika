@@ -146,4 +146,18 @@ void calculate(string str){
     cout << postfix.top() << endl;
 }
 
-
+int main(){
+    string exp; 
+	getline(cin, exp);
+    string buff="";
+    
+    for(i=0; i<exp.length(); i++){
+        if(exp[i]==' ')
+            continue;
+        else
+            buff+=exp[i];
+    }
+    calculate(buff);
+        
+    return 0;
+}
